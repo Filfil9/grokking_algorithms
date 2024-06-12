@@ -1,0 +1,108 @@
+compute Big (o) Notation
+
+Q1/
+int product(int a, int b) {
+    int sum = 0;
+    for (int I = 0; I < b; I++) {
+        sum += a;
+    }
+    return sum; 
+}
+in this code we have for loop (count of loops depends on i)so the Big (o) Notation = O(n)
+
+Q2/
+static int power(int a, int b) {
+    if (b < 0) return a;
+    if (b == 0) return 1;
+    int sum = a;
+    for (int I = 0; I < b - 1; I++) {
+        sum *= a;
+    }
+    return sum;
+}
+in this code we have for loop (count of loops depends on b)so the Big (o) Notation = O(n)
+
+Q3/
+int mod(int a, int b) {
+    if (b <=a) return -1;
+    int div = a / b;
+    return a - div * b;
+}
+in this code we don't have (for) loop(means it return constant number)so the Big (o) Notation =O(1)
+
+Q4/
+int div(int a, int b) {
+    int count = a;
+    int sum = b;
+    while (sum <= a) {
+        sum += b;
+        count++;
+    }
+    return count;
+}
+in this code we have for loop (count of loops depends on a)so the Big (o) Notation = O(n)
+
+Q5/
+int sqrt(int n) {
+    return sqrt_helper(n, 1, n);
+}
+int sqrt_helper(int n, int min, int max) {
+    if (max < min) return -1;
+    int guess = (min + max) / 2;
+    if (guess * guess == n) {
+        return guess;
+    } else if (guess *guess <n) {
+        return sqrt_helper(n, guess + 1, max) ; 
+    } else { 
+        return sqrt_helper(n, min, guess - 1);
+    }
+}
+in this code we divided by 2 so the Big (o) Notation = O(log n)
+
+Q6/
+int sqrt(int n) {
+    for (int guess = 1; guess * guess < n; guess++) {
+        if (guess * guess == n) return guess;
+    }
+    return -1;
+}
+Big (o) Notation = O(log n)
+
+Q7/
+If a binary search tree (BST) is not balanced, how long could it take in the worst case to find an item?
+Big (o) Notation = O(n)
+
+Q8/
+What would be the worst case if we are looking for a value in a binary tree (Binary Tree - BT) that is not ordered?
+Big (o) Notation = O(n)
+
+Q9/
+int[] copyArray(int[] array) {
+    int[] copy = new int[0];
+    for (int value : array) {
+        copy = appendToNew(copy, value);
+    }
+    return copy;
+}
+int[] appendToNew(int[] array, int value) {
+    int[] bigger = new int[array.length + 1];
+    for (int I = 0; I < array. length; I++) {
+        bigger[I] = array[I];
+    }
+    bigger[bigger.length - 1] = value; 
+    return bigger;
+}
+Big (o) Notation = O(n^2) because it like nested loop.
+
+Q10/
+int sumDigits(int n) { 
+    int sum = 0; 
+    while (n > 0) { 
+        sum += n % 10; 
+        n /= 10; 
+    } 
+    return sum; 
+} 
+
+in this code we divided by 10 so the Big (o) Notation = O(log10 n)
+
