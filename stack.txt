@@ -1,0 +1,507 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+
+namespace Stack_Task
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //creat stack. 
+            Stack<int> stack = new Stack<int>();
+            //add number to stack. 
+            stack.Push(3);
+            stack.Push(7);
+            stack.Push(2);
+            stack.Push(8);
+            stack.Push(2);
+            //Find the top element of the stack.
+            //Console.WriteLine(stack.Peek());
+            //remove the number from stack.
+            //Console.WriteLine(stack.Pop());
+            //Console.WriteLine(stack.Pop());
+            //Console.WriteLine(stack.Pop());
+            //Console.WriteLine(stack.Pop());
+            //Console.WriteLine(stack.Pop());
+            //check if the stack is empty or not.
+            if (stack.Count == 0)
+            {
+                Console.WriteLine("The stack is empty.");
+            }
+            else
+            {
+                Console.WriteLine("The stack has elements.");
+            }
+            //sort the elements in descending order.
+            //DescOrder(stack);
+
+            //Display the stack.
+            //Display(stack);
+
+            //sort the elements in ascending order.
+            //AscendOrder(stack);
+
+            //maximum element
+            //MaxNumber(stack);
+
+            //minimum element.
+            //MinNumber(stack);
+
+            //remove all elements.
+            //RemoveAll(stack);
+
+            //remove specified element.
+            //RemoveNumber(stack, 8);
+
+            //element is present or not
+            //Console.WriteLine(CheckNumber(stack,6));
+
+            //remove duplicates.
+            //RemoveDuplicate(stack);
+
+            //Top And Bottom element.
+            //TopAndBottom(stack);
+
+            //swap the top two elements
+            //SwapTop(stack);
+
+            //count the elements in stack.
+            //CountElement(stack);
+
+            //count specified element in stack.
+            //CountSpecified(stack,2);
+
+            //get the nth element from the top of the stack.
+            //getPosition(stack, 8);
+
+            //merge two stacks into one.
+            //creat new stack to merage it with old stack.
+            Stack<int> stack2=new Stack<int>();
+            //store number in new stack.
+            stack2.Push(2);
+            stack2.Push(8);
+            stack2.Push(9);
+            stack2.Push(21);
+            //merage this tow stack
+            //Merge(stack,stack2);
+
+            //checks if a stack is a subset of another stack.
+            //Console.WriteLine(CheckSubset(stack,stack2));
+
+            //rotate the stack elements to the left direction.
+            //Rotat(stack);
+
+            //checks if two stacks are equal.
+            //creat stack. 
+            Stack<int> stackeql = new Stack<int>();
+            //add number to stack. 
+            stack.Push(3);
+            stack.Push(7);
+            stack.Push(2);
+            stack.Push(8);
+            stack.Push(2);
+            //Console.WriteLine(CheckEqule(stack,stackeql));
+
+            //finds common elements between two stacks.
+            //CommonElement(stack, stack2);
+
+            //find elements that are in the first stack but not in the second stack.
+            //Findelement(stack, stack2);
+
+            //Display(stack);
+            Console.ReadLine();
+        }
+        //sort the elements in descending order.
+        public static void DescOrder(Stack<int> stack)
+        {
+            if (stack.Count == 0)
+            {
+                Console.WriteLine("stack is empty");
+            }
+            //creat new stack to store the number in acsending order.
+            Stack<int> TempStack = new Stack<int>();
+            while (stack.Count > 0)
+            {
+                int item = stack.Pop();
+                while (TempStack.Count > 0 && TempStack.Peek() < item)
+                {
+                    stack.Push(TempStack.Pop());
+                }
+                TempStack.Push(item);
+            }
+            //Move number from TempStack (from acsending order) to orginal stack (in descending order). 
+            while (TempStack.Count > 0)
+            {
+                stack.Push(TempStack.Pop());
+            }
+        }
+        //Display the stack.
+        public static void Display(Stack<int> stack)
+        {
+            Stack<int> TempStack = new Stack<int>();
+            while (stack.Count > 0)
+            {
+                Console.WriteLine(stack.Peek());
+                TempStack.Push(stack.Pop());
+            }
+            while (TempStack.Count > 0)
+            { 
+                stack.Push(TempStack.Pop());
+            }
+        }
+        //sort the elements of a given stack in ascending order.
+        public static void AscendOrder(Stack<int> stack)
+        {
+            Stack<int> TempStack = new Stack<int>();
+            while (stack.Count > 0)
+            {
+                int item = stack.Pop();
+                while (TempStack.Count > 0 && TempStack.Peek() > item)
+                {
+                    stack.Push(TempStack.Pop());
+                }
+                TempStack.Push(item);
+            }
+            while (TempStack.Count > 0)
+            {
+              stack.Push(TempStack.Pop());
+            }
+        }
+        //reverse the elements of a given stack.
+        public static void Revers(Stack<int> stack)
+        {
+          Stack<int> TempStack1 = new Stack<int>();
+          Stack<int> TempStack2 = new Stack<int>();
+          // it like swap operation.
+          while(stack.Count > 0)
+          {
+             TempStack1.Push(stack.Pop());
+          }
+          while(TempStack1.Count > 0)
+          {
+            TempStack2.Push(TempStack2.Pop());
+          }
+          while(TempStack2.Count > 0)
+          {
+              stack.Push(TempStack2.Pop());
+          }
+        }
+        //find the maximum element in a stack.
+        public static void MaxNumber(Stack<int> stack)
+        {
+          Stack<int> TempStack = new Stack<int>();
+            int Maxitem=stack.Peek();
+            while (stack.Count >0)
+            {
+             int item = stack.Pop();
+             Maxitem=Math.Max(Maxitem,item);
+             TempStack.Push(item);
+            }
+            Console.WriteLine(Maxitem);
+            while(TempStack.Count > 0)
+            {
+              stack.Push(TempStack.Pop());
+            }
+        }
+        //find the minimum element in a stack.
+        public static void MinNumber(Stack<int> stack)
+        {
+            Stack<int> TempStack = new Stack<int>();
+            int Minitem = stack.Peek();
+            while (stack.Count > 0)
+            {
+                int item = stack.Pop();
+                Minitem=Math.Min(Minitem,item);
+                TempStack.Push(item);
+            }
+            Console.WriteLine(Minitem);
+            while(TempStack.Count > 0)
+            {
+                stack.Push(TempStack.Pop());
+            }
+        }
+        //remove all the elements from a given stack.
+        public static void RemoveAll(Stack<int> stack)
+        {
+            while (stack.Count > 0)
+            {
+                stack.Pop();
+            }
+        }
+        //remove specified element from a given stack.
+        public static void RemoveNumber(Stack<int> stack,int number)
+        {
+            Stack<int> TempStack = new Stack<int>();
+            while (stack.Count > 0)
+            {
+                int item = stack.Pop();
+                TempStack.Push(item);
+                if (item.Equals(number))
+                {
+                  TempStack.Pop();
+                }
+            }
+            while(TempStack.Count > 0)
+            {
+                stack.Push(TempStack.Pop());
+            }
+        }
+        //checks if a given element is present or not in the stack.
+        public static bool CheckNumber(Stack<int> stack, int number)
+        {
+          Stack<int> TempStack = new Stack<int>();
+            while (stack.Count > 0) 
+            {
+              int item = stack.Pop();
+                TempStack.Push(item);
+                if (item.Equals(number))
+                {
+                    return true;
+                }
+            }
+            //move element to orginal stack.
+            while (TempStack.Count > 0)
+            {
+                stack.Push(TempStack.Pop()); 
+            }
+            return false;
+        }
+        //remove duplicates from a given stack.
+        public static void RemoveDuplicate(Stack<int> stack)
+        {
+            Stack<int> TempStack = new Stack<int>();
+            //list store unique element.
+            List<int> TempList = new List<int>();
+            while (stack.Count > 0)
+            {
+                int item = stack.Pop();
+               //check if element is unique or not (if is unique add it to tempstack). 
+                    if (!TempList.Contains(item))
+                    {
+                        TempList.Add(item);
+                        TempStack.Push(item);
+                    }
+            }
+            //move element to the original stack.
+            while (TempStack.Count > 0)
+            {
+                stack.Push(TempStack.Pop());
+            }
+        }
+        // find the top and bottom elements of a given stack.
+        public static void TopAndBottom(Stack<int> stack)
+        {
+            int TopElement = stack.Peek();
+            Stack<int> TempStack = new Stack<int>();
+            while (stack.Count > 0) 
+            {
+                TempStack.Push(stack.Pop());
+            }
+            int BottomElement = TempStack.Peek();
+            //move element to the original stack.
+            while (TempStack.Count > 0)
+            {
+                stack.Push(TempStack.Pop());
+            }
+            Console.WriteLine(TopElement);
+            Console.WriteLine(BottomElement);
+        }
+        //swap the top two elements of a given stack.
+        public static void SwapTop(Stack<int> stack)
+        {
+            //store the peek in element1.
+            int element1=stack.Peek();
+            //remove it.
+            stack.Pop();
+            //store the peek in element2.
+            int element2=stack.Peek();
+            //and remove it.
+            stack.Pop();
+            //add the tow element in the revers order
+            stack.Push(element1);
+            stack.Push(element2);
+        }
+        //count all the elements in a given stack.
+        public static void CountElement(Stack<int> stack)
+        {
+          Stack<int> TempStack = new Stack<int>();
+            int Counter = 0;
+            while (stack.Count > 0) 
+            {
+                TempStack.Push(stack.Pop());
+                Counter++;
+            }
+            while(TempStack.Count > 0)
+            {
+              stack.Push(TempStack.Pop());
+            }
+            Console.WriteLine("count elemnet in stack "+Counter);
+        }
+        //count specified element in a given stack.
+        public static void CountSpecified(Stack<int> stack,int element)
+        {
+            Stack<int> TempStack = new Stack<int>();
+            int counter = 0;
+            while(stack.Count > 0)
+            {
+               int temp = stack.Pop();
+                if (temp.Equals(element))
+                {
+                 counter++;
+                }
+               TempStack.Push(temp);
+            }
+            Console.WriteLine($"Count The number {element} in stack is {counter}");
+            while(TempStack.Count > 0)
+            {
+             stack.Push(TempStack.Pop());
+            }
+        }
+        //get the nth element from the top of the stack.
+        public static void getPosition(Stack<int> stack,int element)
+        {
+          Stack<int> TempStack = new Stack<int>();
+          int count = 0;
+          int Topelement=stack.Peek();
+          while(stack.Count > 0)
+          {
+           int temp = stack.Pop();
+            TempStack.Push(temp);
+            count++;
+                if (Topelement.Equals(element))
+                {
+                    Console.WriteLine($"The element {element} is The First");
+                }
+                else if (temp.Equals(element) && count == 2)
+                {
+                    Console.WriteLine($"The element {element} is The Second");
+                }
+                else if (temp.Equals(element) && count == 3)
+                {
+                    Console.WriteLine($"The element {element} is The Third");
+                }
+                else if (temp.Equals(element))
+                {
+                  Console.WriteLine($"The element {element} is The {count}th");
+                }
+          }
+          while(TempStack.Count > 0)
+            {
+                stack.Push(TempStack.Pop());
+            }
+        }
+        //to merge two stacks into one.
+        public static void Merge(Stack<int> stack1,Stack<int> stack2)
+        {
+         Stack<int> MergeStack = new Stack<int>();
+            while (stack1.Count > 0 || stack2.Count>0)
+            { 
+              if (stack1.Count > 0)
+              {
+                MergeStack.Push(stack1.Pop());
+              }
+              if (stack2.Count > 0)
+              {
+               MergeStack.Push(stack2.Pop()); 
+              }
+            }
+            //Move mergestak to stack2
+            while (MergeStack.Count > 0) 
+            {
+             stack1.Push(MergeStack.Pop());
+            }
+        }
+        //checks if a stack is a subset of another stack.
+        public static bool CheckSubset(Stack<int> stack,Stack<int> Subsetstack)
+        {
+          while (Subsetstack.Count > 0) 
+          {
+            int element= Subsetstack.Pop();
+            //check if the element exist in orginal stack.
+            if (!stack.Contains(element))
+            {
+             return false;//elements not exist in stack.
+            }
+          }
+          return true;//elements exist in stack.
+        }
+        //rotate the stack elements to the left direction.
+        public static void Rotat(Stack<int> stack)
+        {
+        //store the top element.
+         int Topelement=stack.Pop();
+         while(stack.Count > 0)
+         {
+          //move element to the left.
+          stack.Push(stack.Pop());
+         }
+         //return the top element.
+         stack.Push(Topelement);
+        }
+        //checks if two stacks are equal.
+        public static bool CheckEqule(Stack<int> stack1, Stack<int> stack2)
+        {
+            while (stack1.Count == stack2.Count)
+            {
+                int element1= stack1.Pop();
+                int element2 = stack1.Pop();
+                if (element1 != element2) 
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        //finds common elements between two stacks.
+        public static void CommonElement(Stack<int> stack1, Stack<int> stack2)
+        {
+         //creat stack to store the common element between tow stack.
+         Stack<int> stack=new Stack<int>();
+            while (stack1.Count > 0) 
+            {
+              int element1= stack1.Pop();
+                if (stack2.Contains(element1))
+                {
+                  stack.Push(element1);
+
+                }
+
+            }
+            //display stack
+            while (stack.Count > 0)
+            {
+             Console.WriteLine(stack.Pop());
+            }
+            
+
+        }
+        //find elements that are in the first stack but not in the second stack.
+        public static void Findelement(Stack<int> stack1, Stack<int> stack2)
+        {
+            Stack<int> stack =new Stack<int>();
+            while (stack1.Count>0)
+            {
+                int element1=stack1.Pop();
+                //check if the elements not existing in stack2. 
+                if (!stack2.Contains(element1))
+                {
+                  stack.Push (element1);
+                }
+            }
+            //display stack
+            while (stack.Count > 0)
+            {
+                Console.WriteLine(stack.Pop());
+            }
+
+        }
+
+    }
+}
