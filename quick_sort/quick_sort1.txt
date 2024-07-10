@@ -1,0 +1,52 @@
+namespace quiksort
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Sort an Array of Integers.
+            int[] arr = { 3, 6, 8, 10, 1, 2, 1 };
+            Quiksort(arr,0,arr.Length-1);
+            //print the array.
+            for (int i = 0; i <= arr.Length-1; i++)
+            {
+                Console.Write(arr[i] +" ");
+            }
+            Console.ReadLine();
+        }
+        public static void Quiksort(int[] array,int start, int end) 
+        {
+            if (start < end)
+            {
+             int p=partition(array,start,end);
+             Quiksort(array, start, p-1);
+             Quiksort(array, p+1, end);
+            }
+        }
+        public static int partition(int[] array,int start,int end)
+        {
+         //represent the last element in array.
+         int pivot = array[end];
+         //it out the array.(now,do not point to any element)
+         int index = start-1;
+            for (int i = start; i < end; i++)
+            {
+                if (array[i]<= pivot)//check if last element smallest than element. 
+                {
+                  index++;
+                  swap(array,i,index);
+                }  
+            }
+          swap(array,end,index+1);
+          return index+1;
+        }
+        public static void swap(int[] array,int i,int index) 
+        {
+         int temp = array[i];
+         array[i] = array[index];
+         array[index] = temp;
+        }
+
+       
+    }
+}

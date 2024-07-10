@@ -1,0 +1,63 @@
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        int[] arr= { 38, 27, 43, 3, 9, 82, 10 };
+        MergeSort(arr,0,arr.Length-1);
+        //print the array.
+        for (int i = 0; i < arr.Length ; i++)
+        {
+            Console.Write(arr[i] + " ");
+        }
+        Console.ReadLine();
+    }
+    public static void MergeSort(int[] array,int start,int end)
+    {
+        if (start<end)
+        {
+         int mid=(start+end)/2;
+         MergeSort(array,start,mid);
+         MergeSort(array,mid+1,end);
+         Merage(array,start,end,mid);
+        }
+    }
+    //this function creat new array and store the element in ascending order in new array and convert the element to original array
+           //and check the elements in left side and right side and merge this tow side. 
+
+    public static void Merage(int[] array,int start,int end,int mid)
+    {
+        int[] newArr = new int[array.Length];
+        int i=start, j=mid+1;
+        int index = 0;
+
+        while (i<=mid&&j<=end)
+        {
+            if (array[i] < array[j])
+            {
+                newArr[index++] = array[i++];
+            }
+            else
+            {
+              newArr[index++] = array[j++];
+            }
+        }
+        //copy reminder element.
+        while (i<=mid)
+        {
+           newArr[index++]=array[i++];
+        }
+        while (j<=end)
+        {
+           newArr[index++] = array[j++];
+
+        }
+        //convert the elements from newArray to arry
+        int temp = index;
+        index = 0;
+        while (index<temp)
+        {
+          array[start++] = newArr[index++];   
+        }
+    }
+        
+}  

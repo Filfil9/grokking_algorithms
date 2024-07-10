@@ -1,0 +1,63 @@
+namespace quiksort
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+          //Sort a List of Custom Objects.
+          List<Student> students = new List<Student>();
+            students.Add(new Student("Alice", 90));
+            students.Add(new Student("Bob", 85));
+            students.Add(new Student("Charlie", 95));
+            Quiksort(students, 0, students.Count-1);
+            //print the array.
+            foreach (Student student in students)
+            {
+                Console.Write($"({student.Name},{student.Grade})"+",");
+            }
+            Console.ReadLine();
+        }
+        public static void Quiksort(List<Student> list, int start, int end) 
+        {
+            if (start < end)
+            {
+             int p=partition(list, start,end);
+                Quiksort(list, start,p-1);
+                Quiksort(list, p+1,end);    
+            }
+        }
+        public static int partition(List<Student> list,int start,int end)
+        {
+         int pivot =list[end].Grade ;
+         int index=start-1;
+            for (int i = start; i <end; i++)
+            {
+                if(list[i].Grade<=pivot)
+                {
+                  index++;
+                  swap(list,i,index);  
+                }
+            }
+         swap(list,end,index+1);
+         return index+1;
+        }
+        public static void swap(List<Student> list,int i,int index) 
+        {
+         Student temp = list[i];
+         list[i] = list[index];
+         list[index] = temp;
+        }
+
+    }
+
+    internal class Student
+  {
+    public string Name { get; set; }
+    public int Grade { get; set; }
+    public Student(string name,int grade)
+    {
+     Name = name;
+     Grade = grade;  
+    }
+  }
+}
