@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BFS
+{
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        City city=new City();
+        city.addLocation("A");
+        city.addLocation("B");
+        city.addLocation("C");
+        city.addLocation("D");
+        city.addRoad("A", "B");
+        city.addRoad("B", "C");
+        city.addRoad("A", "D");
+        foreach (var location in city.adjacent_list)
+        {
+            List<string> connection =location.Value;
+            Console.WriteLine(location.Key+"->"+string.Join(",",connection));
+        }
+        Console.ReadLine();
+    }
+}
+
+internal class City
+{
+    public Dictionary<string, List<string>> adjacent_list;
+    public City() 
+    {
+        this.adjacent_list=new Dictionary<string, List<string>>();
+    }
+    public void addLocation(string location)
+    {
+      adjacent_list[location]=new List<string>();
+
+    }
+    public void addRoad(string location1, string location2) 
+    {
+        if (adjacent_list.ContainsKey(location1) && adjacent_list.ContainsKey(location2))
+        {
+            adjacent_list[location1].Add(location2);
+            adjacent_list[location2].Add(location1);
+        }
+        else
+        {
+         return;
+        }
+    }
+}
+}
